@@ -108,16 +108,15 @@ public class UserController {
 	
 	@PutMapping("/api/user/credentials")
 	public ResponseEntity<MessageResponse> changeCredentials(@RequestBody @Valid ChangeCredentialsRequest request) {
-		System.out.println("New password: " + request.getNewPassword());
-//		authenticationManager.authenticate(
-//				new UsernamePasswordAuthenticationToken(UserUtil.getCurrentUsername(), request.getOldPassword()));
-//		
-//		String passwordEncoded = passwordEncoder.encode(request.getNewPassword());
-//		userService.changeCredentials(request.getUsername(), passwordEncoded);
-//		
-//		Authentication authentication = authenticationManager.authenticate(
-//				new UsernamePasswordAuthenticationToken(request.getUsername(), passwordEncoded));
-//		SecurityContextHolder.getContext().setAuthentication(authentication);
+		authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(UserUtil.getCurrentUsername(), request.getOldPassword()));
+		
+		String passwordEncoded = passwordEncoder.encode(request.getNewPassword());
+		userService.changeCredentials(request.getUsername(), passwordEncoded);
+		
+		Authentication authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(request.getUsername(), passwordEncoded));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
 		return ResponseEntity.ok(
 				new MessageResponse(ResponseStatus.SUCCESS, ApiActions.UPDATE, EntityName.USER));
