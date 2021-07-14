@@ -34,7 +34,7 @@ public class FlashcardServiceImpl implements FlashcardService {
 	@Override
 	public Flashcard findById(Long id) {
 		Optional<Flashcard> flashcardOptional = flashcardRepository.findById(id);
-		if (flashcardOptional.isEmpty()) {
+		if (!flashcardOptional.isPresent()) {
 			throw new BadRequestException(
 					Messages.ERROR_REQUESTED_DATA_DOES_NOT_EXIST,
 					ApiActions.RETRIEVE, EntityName.FLASHCARD);
@@ -98,7 +98,7 @@ public class FlashcardServiceImpl implements FlashcardService {
 	@Override
 	public void deleteById(Long id) {
 		Optional<Flashcard> flashcardOptional = flashcardRepository.findById(id);
-		if (flashcardOptional.isEmpty()) {
+		if (!flashcardOptional.isPresent()) {
 			throw new BadRequestException(
 					Messages.ERROR_INVALID_REQUEST_DATA,
 					ApiActions.DELETE, EntityName.FLASHCARD);

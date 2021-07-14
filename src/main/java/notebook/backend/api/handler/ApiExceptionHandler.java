@@ -13,7 +13,7 @@ import notebook.backend.api.response.MessageResponse;
 public class ApiExceptionHandler {
 
 	@ExceptionHandler(BadRequestException.class)
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	@ResponseStatus(HttpStatus.OK)
 	@ResponseBody
 	public MessageResponse handleBadRequestException(BadRequestException exception) {
 		MessageResponse response = new MessageResponse(

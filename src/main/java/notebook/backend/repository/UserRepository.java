@@ -10,5 +10,11 @@ import notebook.backend.repository.custom.UserRepositoryCustom;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long>, UserRepositoryCustom {
+	boolean existsByUsername(String username);
+	
+	boolean existsByEmail(String email);
+	
 	Optional<User> findByUsername(String username);
+	
+	Optional<User> findByEmail(String email);
 }

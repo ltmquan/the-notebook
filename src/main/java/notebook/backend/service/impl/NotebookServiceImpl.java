@@ -34,7 +34,7 @@ public class NotebookServiceImpl implements NotebookService {
 	@Override
 	public Notebook findById(Long id) {
 		Optional<Notebook> notebookOptional = notebookRepository.findById(id);
-		if (notebookOptional.isEmpty()) {
+		if (!notebookOptional.isPresent()) {
 			throw new BadRequestException(
 					Messages.ERROR_REQUESTED_DATA_DOES_NOT_EXIST,
 					ApiActions.RETRIEVE, EntityName.NOTEBOOK);
@@ -72,13 +72,7 @@ public class NotebookServiceImpl implements NotebookService {
 					ApiActions.CREATE, EntityName.NOTEBOOK);
 		}
 		
-		if (!UserUtil.userIdIsConsistent(notebookDTO.getUserId())) {
-			throw new BadRequestException(
-					Messages.ERROR_INVALID_REQUEST, 
-					ApiActions.CREATE, EntityName.NOTEBOOK);
-		}
-		
-		User user = userService.findById(notebookDTO.getUserId());
+		User user = userService.findById(UserUtil.getCurrentUserId());
 		
 		Notebook notebook = notebookMapper.toEntity(notebookDTO);
 		notebook.setUser(user);
@@ -94,13 +88,7 @@ public class NotebookServiceImpl implements NotebookService {
 					ApiActions.UPDATE, EntityName.NOTEBOOK);
 		}
 		
-		if (!UserUtil.userIdIsConsistent(notebookDTO.getUserId())) {
-			throw new BadRequestException(
-					Messages.ERROR_INVALID_REQUEST, 
-					ApiActions.UPDATE, EntityName.NOTEBOOK);
-		}
-		
-		User user = userService.findById(notebookDTO.getUserId());
+		User user = userService.findById(UserUtil.getCurrentUserId());
 		
 		Notebook notebook = notebookMapper.toEntity(notebookDTO);
 		notebook.setUser(user);
@@ -111,7 +99,7 @@ public class NotebookServiceImpl implements NotebookService {
 	@Override
 	public void deleteById(Long id) {
 		Optional<Notebook> notebookOptional = notebookRepository.findById(id);
-		if (notebookOptional.isEmpty()) {
+		if (!notebookOptional.isPresent()) {
 			throw new BadRequestException(
 					Messages.ERROR_INVALID_REQUEST_DATA,
 					ApiActions.DELETE, EntityName.NOTEBOOK);

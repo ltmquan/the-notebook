@@ -19,6 +19,7 @@ public class BadRequestException extends RuntimeException {
 	public BadRequestException(String message, String action, String entityName) {
 		super();
 		this.message = message;
+		this.action = action;
 		this.entityName = entityName;
 	}
 }

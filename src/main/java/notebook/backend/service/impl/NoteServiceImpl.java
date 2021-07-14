@@ -39,7 +39,7 @@ public class NoteServiceImpl implements NoteService {
 	@Override
 	public Note findById(Long id) {
 		Optional<Note> noteOptional = noteRepository.findById(id);
-		if (noteOptional.isEmpty()) {
+		if (!noteOptional.isPresent()) {
 			throw new BadRequestException(
 					Messages.ERROR_REQUESTED_DATA_DOES_NOT_EXIST,
 					ApiActions.RETRIEVE, EntityName.NOTE);
@@ -111,7 +111,7 @@ public class NoteServiceImpl implements NoteService {
 	@Override
 	public void deleteById(Long id) {
 		Optional<Note> noteOptional = noteRepository.findById(id);
-		if (noteOptional.isEmpty()) {
+		if (!noteOptional.isPresent()) {
 			throw new BadRequestException(
 					Messages.ERROR_INVALID_REQUEST_DATA,
 					ApiActions.DELETE, EntityName.NOTE);

@@ -22,7 +22,7 @@ public class RoleServiceImpl implements RoleService {
 	@Override
 	public Role findById(Long id) {
 		Optional<Role> roleOptional = roleRepository.findById(id);
-		if (roleOptional.isEmpty()) {
+		if (!roleOptional.isPresent()) {
 			throw new BadRequestException(
 					Messages.ERROR_REQUESTED_DATA_DOES_NOT_EXIST,
 					ApiActions.RETRIEVE,

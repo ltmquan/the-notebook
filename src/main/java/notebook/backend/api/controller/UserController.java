@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import notebook.backend.api.request.ChangeCredentialsRequest;
 import notebook.backend.api.request.LoginRequest;
+import notebook.backend.api.request.ResetPasswordRequest;
 import notebook.backend.api.request.SignupRequest;
 import notebook.backend.api.response.JwtResponse;
 import notebook.backend.api.response.MessageResponse;
@@ -100,13 +101,31 @@ public class UserController {
 				new MessageResponse(ResponseStatus.SUCCESS, ApiActions.CREATE, EntityName.USER));
 	}
 	
+	@PostMapping("/user/forgot-password/email")
+	public ResponseEntity<MessageResponse> sendOtpEmail(@RequestBody String email) {
+		userService.sendOtpEmail(email);
+		
+		return ResponseEntity.ok().body(
+				new MessageResponse(ResponseStatus.SUCCESS, ApiActions.SEND_EMAIL, EntityName.USER));
+	}
+	
+	@PostMapping("/user/forgot-password/otp")
+	public ResponseEntity<MessageResponse> resetPasswordWithOtp(@RequestBody ResetPasswordRequest request) {
+		userService.resetPasswordWithOtp(request.getOtp(), passwordEncoder.encode(request.getNewPassword()));
+		
+		return ResponseEntity.ok().body(
+				new MessageResponse(ResponseStatus.SUCCESS, ApiActions.UPDATE, EntityName.USER));
+	}
+	
 	@PutMapping("/api/user")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<UserDTO> update(@RequestBody @Valid UserDTO userDTO) {
 		UserDTO dto = userService.update(userDTO);
 		return ResponseEntity.ok(dto);
 	}
 	
 	@PutMapping("/api/user/credentials")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<MessageResponse> changeCredentials(@RequestBody @Valid ChangeCredentialsRequest request) {
 		authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(UserUtil.getCurrentUsername(), request.getOldPassword()));
@@ -123,6 +142,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/api/user")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<MessageResponse> delete() {
 		userService.delete();
 		return ResponseEntity.ok(

@@ -2,11 +2,13 @@ package notebook.backend.constants;
 
 public class ApiActions {
 	
-	public static final String SIGNIN = "signin";
+	public static final String SIGNIN = "sign in";
 	
-	public static final String LOGOUT = "logout";
+	public static final String LOGOUT = "log out";
 	
 	public static final String AUTHENTICATE = "authenticate";
+	
+	public static final String SEND_EMAIL = "send email";
 	
 	public static final String RETRIEVE = "retrieve";
 

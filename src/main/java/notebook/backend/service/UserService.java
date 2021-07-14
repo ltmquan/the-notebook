@@ -10,9 +10,15 @@ public interface UserService {
 	
 	User findByUsername(String username);
 	
+	User findByEmail(String email);
+	
 	void signin(String username);
 	
 	void logout();
+	
+	void sendOtpEmail(String email);
+	
+	void resetPasswordWithOtp(String otp, String password);
 	
 	void create(User user);
 	

@@ -1,7 +1,6 @@
 package notebook.backend.model.dto;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -14,10 +13,5 @@ public class NotebookDTO {
 	private String name;
 	
 	private String description;
-	
-	@NotNull
-	private Long userId;
-	
-	private String userName;
 	
 }

@@ -34,7 +34,7 @@ public class NoteTypeServiceImpl implements NoteTypeService {
 	@Override
 	public NoteType findById(Long id) {
 		Optional<NoteType> noteTypeOptional = noteTypeRepository.findById(id);
-		if (noteTypeOptional.isEmpty()) {
+		if (!noteTypeOptional.isPresent()) {
 			throw new BadRequestException(
 					Messages.ERROR_REQUESTED_DATA_DOES_NOT_EXIST, 
 					ApiActions.RETRIEVE, EntityName.NOTE_TYPE);
@@ -71,13 +71,7 @@ public class NoteTypeServiceImpl implements NoteTypeService {
 					ApiActions.CREATE, EntityName.NOTE_TYPE);
 		}
 		
-		if (!UserUtil.userIdIsConsistent(noteTypeDTO.getUserId())) {
-			throw new BadRequestException(
-					Messages.ERROR_INVALID_REQUEST, 
-					ApiActions.CREATE, EntityName.NOTE_TYPE);
-		}
-		
-		User user = userService.findById(noteTypeDTO.getUserId());
+		User user = userService.findById(UserUtil.getCurrentUserId());
 		
 		NoteType noteType = noteTypeMapper.toEntity(noteTypeDTO);
 		noteType.setUser(user);
@@ -93,13 +87,7 @@ public class NoteTypeServiceImpl implements NoteTypeService {
 					ApiActions.UPDATE, EntityName.NOTE_TYPE);
 		}
 		
-		if (!UserUtil.userIdIsConsistent(noteTypeDTO.getUserId())) {
-			throw new BadRequestException(
-					Messages.ERROR_INVALID_REQUEST, 
-					ApiActions.UPDATE, EntityName.NOTE_TYPE);
-		}
-		
-		User user = userService.findById(noteTypeDTO.getUserId());
+		User user = userService.findById(UserUtil.getCurrentUserId());
 		
 		NoteType noteType = noteTypeMapper.toEntity(noteTypeDTO);
 		noteType.setUser(user);
@@ -110,7 +98,7 @@ public class NoteTypeServiceImpl implements NoteTypeService {
 	@Override
 	public void deleteById(Long id) {
 		Optional<NoteType> noteTypeOptional = noteTypeRepository.findById(id);
-		if (noteTypeOptional.isEmpty()) {
+		if (!noteTypeOptional.isPresent()) {
 			throw new BadRequestException(
 					Messages.ERROR_INVALID_REQUEST_DATA, 
 					ApiActions.DELETE, EntityName.NOTE_TYPE);
