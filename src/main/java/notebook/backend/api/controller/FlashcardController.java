@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,16 +33,19 @@ public class FlashcardController {
 	FlashcardService flashcardService;
 	
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<FlashcardDTO> findById(@PathVariable Long id) {
 		return ResponseEntity.ok(flashcardService.findDTOById(id));
 	}
 	
-	@GetMapping("/note/{noteId}")
+	@GetMapping("/user")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<List<FlashcardDTO>> findByCurrentUser() {
 		return ResponseEntity.ok(flashcardService.findByCurrentUser());
 	}
 	
 	@PostMapping
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<MessageResponse> create(@RequestBody @Valid FlashcardDTO flashcardDTO) {
 		flashcardService.create(flashcardDTO);
 		return ResponseEntity.ok(
@@ -49,6 +53,7 @@ public class FlashcardController {
 	}
 	
 	@PutMapping
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<MessageResponse> update(@RequestBody @Valid FlashcardDTO flashcardDTO) {
 		flashcardService.update(flashcardDTO);
 		return ResponseEntity.ok(
@@ -56,6 +61,7 @@ public class FlashcardController {
 	}
 	
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<MessageResponse> deleteById(@PathVariable Long id) {
 		flashcardService.deleteById(id);
 		return ResponseEntity.ok(
