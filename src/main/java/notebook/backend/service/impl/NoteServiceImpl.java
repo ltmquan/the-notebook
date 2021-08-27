@@ -80,7 +80,10 @@ public class NoteServiceImpl implements NoteService {
 		
 		Notebook notebook = notebookService.findById(noteDTO.getNotebookId());
 		
-		NoteType noteType = noteTypeService.findById(noteDTO.getTypeId());
+		NoteType noteType = null;
+		if (noteDTO.getTypeId() != null) {
+			noteType = noteTypeService.findById(noteDTO.getTypeId());
+		}
 		
 		Note note = noteMapper.toEntity(noteDTO);
 		note.setNotebook(notebook);
@@ -99,7 +102,10 @@ public class NoteServiceImpl implements NoteService {
 		
 		Notebook notebook = notebookService.findById(noteDTO.getNotebookId());
 		
-		NoteType noteType = noteTypeService.findById(noteDTO.getTypeId());
+		NoteType noteType = null;
+		if (noteDTO.getTypeId() != null) {
+			noteType = noteTypeService.findById(noteDTO.getTypeId());
+		}
 		
 		Note note = noteMapper.toEntity(noteDTO);
 		note.setNotebook(notebook);

@@ -16,7 +16,6 @@ public class NoteDTO {
 	@NotBlank
 	private String content;
 	
-	@NotNull
 	private Long typeId;
 	
 	private String typeName;

@@ -1,7 +1,6 @@
 package notebook.backend.model.dto;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -18,9 +17,4 @@ public class FlashcardDTO {
 	
 	@NotBlank
 	private String content;
-	
-	@NotNull
-	private Long noteId;
-	
-	private String noteName;
 }

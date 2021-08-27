@@ -37,8 +37,8 @@ public class FlashcardController {
 	}
 	
 	@GetMapping("/note/{noteId}")
-	public ResponseEntity<List<FlashcardDTO>> findByNoteId(@PathVariable Long noteId) {
-		return ResponseEntity.ok(flashcardService.findByNoteId(noteId));
+	public ResponseEntity<List<FlashcardDTO>> findByCurrentUser() {
+		return ResponseEntity.ok(flashcardService.findByCurrentUser());
 	}
 	
 	@PostMapping

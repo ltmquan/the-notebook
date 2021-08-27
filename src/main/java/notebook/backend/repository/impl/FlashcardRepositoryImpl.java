@@ -14,9 +14,9 @@ public class FlashcardRepositoryImpl implements FlashcardRepositoryCustom{
 	EntityManager entityManager;
 
 	@Override
-	public List<Flashcard> findByNoteId(Long id) {
+	public List<Flashcard> findByUserId(Long id) {
 
-		String sql = "from Flashcard e where e.note is not null and e.note.id = :id";
+		String sql = "from Flashcard e where e.user is not null and e.user.id = :id";
 		Query query = entityManager.createQuery(sql, Flashcard.class);
 		query.setParameter("id", id);
 		

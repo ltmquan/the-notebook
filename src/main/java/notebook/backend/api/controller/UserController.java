@@ -102,8 +102,8 @@ public class UserController {
 	}
 	
 	@PostMapping("/user/forgot-password/email")
-	public ResponseEntity<MessageResponse> sendOtpEmail(@RequestBody String email) {
-		userService.sendOtpEmail(email);
+	public ResponseEntity<MessageResponse> sendResetPasswordEmail(@RequestBody String email) {
+		userService.sendResetPasswordEmail(email);
 		
 		return ResponseEntity.ok().body(
 				new MessageResponse(ResponseStatus.SUCCESS, ApiActions.SEND_EMAIL, EntityName.USER));

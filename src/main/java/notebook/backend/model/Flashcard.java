@@ -33,7 +33,7 @@ public class Flashcard {
 	private String content;
 	
 	@ManyToOne
-	@JoinColumn(name="note_id", referencedColumnName="id")
-	private Note note;
+	@JoinColumn(name="user_id", referencedColumnName="id")
+	private User user;
 	
 }

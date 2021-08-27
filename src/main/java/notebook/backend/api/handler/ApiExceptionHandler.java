@@ -17,7 +17,7 @@ public class ApiExceptionHandler {
 	@ResponseBody
 	public MessageResponse handleBadRequestException(BadRequestException exception) {
 		MessageResponse response = new MessageResponse(
-				notebook.backend.constants.ResponseStatus.FAILURE,
+				notebook.backend.constants.ResponseStatus.ERROR,
 				exception.getAction(),
 				exception.getEntityName(),
 				exception.getMessage());

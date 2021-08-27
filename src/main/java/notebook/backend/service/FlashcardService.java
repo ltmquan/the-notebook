@@ -10,7 +10,7 @@ public interface FlashcardService {
 	
 	FlashcardDTO findDTOById(Long id);
 	
-	List<FlashcardDTO> findByNoteId(Long id);
+	List<FlashcardDTO> findByCurrentUser();
 	
 	void create(FlashcardDTO flashcardDTO);
 	

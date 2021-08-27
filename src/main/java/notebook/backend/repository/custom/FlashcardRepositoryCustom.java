@@ -6,5 +6,5 @@ import notebook.backend.model.Flashcard;
 
 public interface FlashcardRepositoryCustom {
 
-	List<Flashcard> findByNoteId(Long id);
+	List<Flashcard> findByUserId(Long id);
 }

@@ -13,10 +13,6 @@ public interface FlashcardMapper extends EntityMapper<Flashcard, FlashcardDTO>{
 	Flashcard toEntity(FlashcardDTO flashcardDTO);
 	
 	@Override
-	@Mappings({
-		@Mapping(source="note.id", target="noteId"),
-		@Mapping(source="note.name", target="noteName")
-	})
 	FlashcardDTO toDTO(Flashcard flashcard);
 	
 	default Flashcard fromId(Long id) {

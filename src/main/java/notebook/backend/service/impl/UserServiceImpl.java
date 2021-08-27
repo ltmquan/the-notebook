@@ -99,7 +99,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public void sendOtpEmail(String email) {
+	public void sendResetPasswordEmail(String email) {
 		User user = this.findByEmail(email);
 		
 		String otp = otpService.generateOtp(user.getUsername());

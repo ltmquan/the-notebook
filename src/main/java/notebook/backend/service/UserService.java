@@ -16,7 +16,7 @@ public interface UserService {
 	
 	void logout();
 	
-	void sendOtpEmail(String email);
+	void sendResetPasswordEmail(String email);
 	
 	void resetPasswordWithOtp(String otp, String password);
 	
